@@ -2,6 +2,11 @@ import { describe, it, expect } from "@jest/globals";
 import { graph } from "../src/agent.js";
 import { z } from "zod";
 describe("Researcher", () => {
+  it("should initialize and compile the graph", () => {
+    expect(graph).toBeDefined();
+    expect(graph.name).toBe("ResearchTopic");
+  });
+  
   it("Simple runthrough", async () => {
     const enrichmentSchema = z.object({
       founder: z.string().describe("The name of the company founder."),
