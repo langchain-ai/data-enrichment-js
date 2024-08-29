@@ -6,7 +6,7 @@ describe("Researcher", () => {
     expect(graph).toBeDefined();
     expect(graph.name).toBe("ResearchTopic");
   });
-  
+
   it("Simple runthrough", async () => {
     const enrichmentSchema = z.object({
       founder: z.string().describe("The name of the company founder."),
