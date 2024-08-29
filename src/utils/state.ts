@@ -42,16 +42,16 @@ export const StateAnnotation = Annotation.Root({
     reducer: messagesStateReducer,
     default: () => [],
   }),
-  topic: Annotation<string>(),
+  topic: Annotation<string>,
   /**
    * The info state trackes the current extracted data for the given topic,
    * conforming to the provided schema.
    */
-  info: Annotation<z.infer<z.ZodObject<z.ZodRawShape>>>(),
+  info: Annotation<z.infer<z.ZodObject<z.ZodRawShape>>>,
   /**
    * The schema defines the information the agent is tasked with filling out.
    */
-  schema: Annotation<z.ZodObject<z.ZodRawShape>>(),
+  schema: Annotation<z.ZodObject<z.ZodRawShape>>,
   // Feel free to add additional attributes to your state as needed.
   // Common examples include retrieved documents, extracted entities, API connections, etc.
 });
