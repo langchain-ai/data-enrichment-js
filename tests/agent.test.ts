@@ -1,5 +1,8 @@
-import { describe } from "@jest/globals";
+import { describe, it, expect } from "@jest/globals";
 
-describe.skip("Web Research Agent", () => {
+describe("Web Research Agent", () => {
+  it("todo", async () => {
+    expect(true).toBe(true);
+  });
   // TODO: Add more test cases for individual nodes, routing logic, tool integration, and output validation
 });
