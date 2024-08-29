@@ -7,7 +7,7 @@ import {
   ToolMessage,
 } from "@langchain/core/messages";
 import { StructuredTool, tool } from "@langchain/core/tools";
-import { StateGraph } from "@langchain/langgraph";
+import { StateGraph, START, END } from "@langchain/langgraph";
 import { z } from "zod";
 import { State, StateAnnotation } from "./utils/state.js";
 import { curry, getTextContent } from "./utils/utils.js";
@@ -27,7 +27,7 @@ const DEFAULT_CONFIG = {
   MODEL_NAME: "claude-3-5-sonnet-20240620",
   /** Maximum number of search results to return */
   MAX_SEARCH_RESULTS: 10,
-  /** Maximum number of times the Info tool can be called before "__end__"ing the workflow */
+  /** Maximum number of times the Info tool can be called before "END"ing the workflow */
   MAX_INFO_TOOL_CALLS: 3,
 };
 
@@ -278,7 +278,7 @@ const badAgent = (state: State): { messages: BaseMessage[] } => {
  */
 const route_after_agent = (
   state: State,
-): "badAgent" | "callChecker" | "toolNode" | "__end__" => {
+): "badAgent" | "callChecker" | "toolNode" | typeof END => {
   const lastMessage = state.messages[state.messages.length - 1] as AIMessage;
   const numRounds = state.messages.filter(
     (m) => ((m._getType() as string) === "tool" && m.name === "Info") || false,
@@ -288,7 +288,7 @@ const route_after_agent = (
     return "badAgent";
   } else if (lastMessage.tool_calls[0].name === "Info") {
     if (numRounds > 2) {
-      return "__end__";
+      return END;
     }
     return "callChecker";
   } else {
@@ -297,15 +297,15 @@ const route_after_agent = (
 };
 
 /**
- * Routing function: Determines whether to continue research or "__end__" the workflow.
+ * Routing function: Determines whether to continue research or "END" the workflow.
  * This function decides if the gathered information is satisfactory or if more research is needed.
  *
  * @param state - The current state of the research workflow
- * @returns Either "callModel" to continue research or "__end__" to finish the workflow
+ * @returns Either "callModel" to continue research or "END" to finish the workflow
  */
-const route_after_checker = (state: State): "__end__" | "callModel" => {
+const route_after_checker = (state: State): typeof END | "callModel" => {
   if (state.info) {
-    return "__end__";
+    return END;
   }
   return "callModel";
 };
@@ -360,7 +360,7 @@ const workflow = new StateGraph(StateAnnotation)
   .addNode("callChecker", callChecker)
   .addNode("badAgent", badAgent)
   .addNode("toolNode", createToolNode([searchTool, scrapeWebsiteToolFull]))
-  .addEdge("__start__", "callModel")
+  .addEdge(START, "callModel")
   .addConditionalEdges("callModel", route_after_agent)
   .addEdge("toolNode", "callModel")
   .addConditionalEdges("callChecker", route_after_checker)
