@@ -2,13 +2,18 @@ import { describe, it, expect } from "@jest/globals";
 import { graph } from "../src/enrichment_agent/graph.js";
 import { z } from "zod";
 describe("Researcher", () => {
+  it("should initialize and compile the graph", () => {
+    expect(graph).toBeDefined();
+    expect(graph.name).toBe("ResearchTopic");
+  });
+
   it("Simple runthrough", async () => {
     const enrichmentSchema = z.object({
       founder: z.string().describe("The name of the company founder."),
       websiteUrl: z
         .string()
         .describe(
-          "Website URL of the company, e.g.: https://openai.com/, or https://microsoft.com"
+          "Website URL of the company, e.g.: https://openai.com/, or https://microsoft.com",
         ),
     });
     const res = await graph.invoke({
