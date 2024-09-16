@@ -1,6 +1,24 @@
 import { Annotation, messagesStateReducer } from "@langchain/langgraph";
 import { type BaseMessage } from "@langchain/core/messages";
 import { z } from "zod";
+
+// eslint-disable-next-line
+export type AnyRecord = Record<string, any>;
+
+export const InputStateAnnotation = Annotation.Root({
+  topic: Annotation<string>,
+  /**
+   * The info state trackes the current extracted data for the given topic,
+   * conforming to the provided schema.
+   */
+  info: Annotation<z.infer<z.ZodObject<z.ZodRawShape>>>,
+  /**
+   * The schema defines the information the agent is tasked with filling out.
+   */
+  extractionSchema: Annotation<z.ZodObject<z.ZodRawShape>>,
+  // Feel free to add additional attributes to your state as needed.
+  // Common examples include retrieved documents, extracted entities, API connections, etc.
+});
 /**
  * A graph's StateAnnotation defines three main thing:
  * 1. The structure of the data to be passed between nodes (which "channels" to read from/write to and their types)
@@ -47,11 +65,22 @@ export const StateAnnotation = Annotation.Root({
    * The info state trackes the current extracted data for the given topic,
    * conforming to the provided schema.
    */
-  info: Annotation<z.infer<z.ZodObject<z.ZodRawShape>>>,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  info: Annotation<AnyRecord>,
   /**
    * The schema defines the information the agent is tasked with filling out.
    */
-  schema: Annotation<z.ZodObject<z.ZodRawShape>>,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  extractionSchema: Annotation<AnyRecord>,
+
+  /**
+   * Tracks the number of iterations the agent has gone through in the current session.
+   * This can be used to limit the number of iterations or to track progress.
+   */
+  loopStep: Annotation<number>({
+    reducer: (left: number, right: number) => left + right,
+    default: () => 0,
+  }),
   // Feel free to add additional attributes to your state as needed.
   // Common examples include retrieved documents, extracted entities, API connections, etc.
 });

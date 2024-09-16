@@ -1,8 +1,8 @@
 {
-  "name": "company-researcher-js",
+  "name": "data-enrichment",
   "version": "0.0.1",
-  "description": "An agent that researches a given company",
-  "main": "agent.ts",
+  "description": "A LangGraphJS template that populates ",
+  "main": "src/enrichment_agent/graph.ts",
   "author": "William Fu-Hinthorn",
   "license": "MIT",
   "private": true,
@@ -20,12 +20,13 @@
     "test:all": "yarn test && yarn test:int && yarn lint:langgraph"
   },
   "dependencies": {
-    "@langchain/anthropic": "^0.2.15",
-    "@langchain/community": "^0.2.31",
-    "@langchain/core": "^0.2.31",
-    "@langchain/langgraph": "^0.1.8",
-    "langchain": "^0.2.17",
-    "langsmith": "^0.1.48",
+    "@langchain/anthropic": "^0.3.0",
+    "@langchain/community": "^0.3.0",
+    "@langchain/core": "^0.3.1",
+    "@langchain/langgraph": "^0.2.3",
+    "langchain": "^0.3.2",
+    "langsmith": "^0.1.55",
+    "ts-node": "^10.9.2",
     "zod": "^3.23.8"
   },
   "devDependencies": {

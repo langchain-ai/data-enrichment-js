@@ -1,6 +1,5 @@
 import { describe, it, expect } from "@jest/globals";
-import { graph } from "../src/agent.js";
-import { z } from "zod";
+import { graph } from "../src/enrichment_agent/graph.js";
 describe("Researcher", () => {
   it("should initialize and compile the graph", () => {
     expect(graph).toBeDefined();
@@ -8,17 +7,24 @@ describe("Researcher", () => {
   });
 
   it("Simple runthrough", async () => {
-    const enrichmentSchema = z.object({
-      founder: z.string().describe("The name of the company founder."),
-      websiteUrl: z
-        .string()
-        .describe(
-          "Website URL of the company, e.g.: https://openai.com/, or https://microsoft.com",
-        ),
-    });
+    const enrichmentSchema = {
+      type: "object",
+      properties: {
+        founder: {
+          type: "string",
+          description: "The name of the company founder.",
+        },
+        websiteUrl: {
+          type: "string",
+          description:
+            "Website URL of the company, e.g.: https://openai.com/, or https://microsoft.com",
+        },
+      },
+      required: ["founder", "websiteUrl"],
+    };
     const res = await graph.invoke({
       topic: "LangChain",
-      schema: enrichmentSchema,
+      extractionSchema: enrichmentSchema,
     });
     expect(res.info).toBeDefined();
     const info = res.info;
