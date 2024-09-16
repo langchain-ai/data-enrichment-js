@@ -1,5 +1,5 @@
 import { describe, it, expect } from "@jest/globals";
-import { graph } from "../src/agent.js";
+import { graph } from "../src/enrichment_agent/graph.js";
 import { z } from "zod";
 describe("Researcher", () => {
   it("Simple runthrough", async () => {
@@ -8,7 +8,7 @@ describe("Researcher", () => {
       websiteUrl: z
         .string()
         .describe(
-          "Website URL of the company, e.g.: https://openai.com/, or https://microsoft.com",
+          "Website URL of the company, e.g.: https://openai.com/, or https://microsoft.com"
         ),
     });
     const res = await graph.invoke({

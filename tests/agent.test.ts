@@ -1,5 +1,5 @@
 import { describe, it, expect } from "@jest/globals";
-import { graph } from "../src/agent.js";
+import { graph } from "../src/enrichment_agent/graph.js";
 
 describe("Web Research Agent", () => {
   it("should initialize and compile the graph", () => {

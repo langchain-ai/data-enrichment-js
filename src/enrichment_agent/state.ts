@@ -54,6 +54,15 @@ export const StateAnnotation = Annotation.Root({
   schema: Annotation<z.ZodObject<z.ZodRawShape>>(),
   // Feel free to add additional attributes to your state as needed.
   // Common examples include retrieved documents, extracted entities, API connections, etc.
+
+  /**
+   * Tracks the number of iterations the agent has gone through in the current session.
+   * This can be used to limit the number of iterations or to track progress.
+   */
+  loopStep: Annotation<number>({
+    reducer: (left: number, right: number) => left + right,
+    default: () => 0,
+  }),
 });
 
 export type State = typeof StateAnnotation.State;
