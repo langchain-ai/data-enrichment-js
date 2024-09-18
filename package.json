@@ -1,7 +1,7 @@
 {
   "name": "data-enrichment",
   "version": "0.0.1",
-  "description": "A LangGraphJS template that populates ",
+  "description": "A LangGraph.JS template that populates ",
   "main": "src/enrichment_agent/graph.ts",
   "author": "William Fu-Hinthorn",
   "license": "MIT",
