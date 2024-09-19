@@ -67,16 +67,17 @@ async function scrapeWebsite(
    */
   const response = await fetch(url);
   const content = await response.text();
+  const truncatedContent = content.slice(0, 50000);
   const configuration = ensureConfiguration(config);
   const p = INFO_PROMPT.replace(
     "{info}",
     JSON.stringify(__state?.extractionSchema, null, 2),
   )
     .replace("{url}", url)
-    .replace("{content}", content);
+    .replace("{content}", truncatedContent);
 
   const rawModel = await loadChatModel(configuration.model);
-  const result = await rawModel.invoke(p, config);
+  const result = await rawModel.invoke(p, { callbacks: config?.callbacks });
   return getTextContent(result.content);
 }
 
