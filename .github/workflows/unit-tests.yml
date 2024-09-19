@@ -50,4 +50,7 @@ jobs:
           path: src/
 
       - name: Run tests
+        env:
+          ANTHROPIC_API_KEY: afakekey
+          TAVILY_API_KEY: anotherfakekey
         run: yarn test

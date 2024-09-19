@@ -5,21 +5,6 @@ import {
 } from "@langchain/core/messages";
 import { initChatModel } from "langchain/chat_models/universal";
 
-export function curry<
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  F extends (...args: any[]) => any,
-  P extends Partial<Parameters<F>[0]> = Partial<Parameters<F>[0]>,
->(fn: F, partialArg: P) {
-  return function (
-    this: unknown,
-    arg: Omit<Parameters<F>[0], keyof P> & Partial<P>,
-    ...rest: Parameters<F> extends [unknown, ...infer R] ? R : never
-  ): ReturnType<F> {
-    const mergedArg = { ...partialArg, ...arg } as Parameters<F>[0];
-    return fn.apply(this, [mergedArg, ...rest]) as ReturnType<F>;
-  };
-}
-
 /**
  * Helper function to extract text content from a complex message.
  *

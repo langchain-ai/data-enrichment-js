@@ -49,15 +49,15 @@ export const ConfigurationAnnotation = Annotation.Root({
 export function ensureConfiguration(
   config?: RunnableConfig,
 ): typeof ConfigurationAnnotation.State {
-  const configurable = (config?.configurable || {}) as Partial<
+  const configurable = (config?.configurable ?? {}) as Partial<
     typeof ConfigurationAnnotation.State
   >;
 
   return {
-    model: configurable.model || "anthropic/claude-3-5-sonnet-20240620",
-    prompt: configurable.prompt || MAIN_PROMPT,
-    maxSearchResults: configurable.maxSearchResults || 10,
-    maxInfoToolCalls: configurable.maxInfoToolCalls || 3,
-    maxLoops: configurable.maxLoops || 6,
+    model: configurable.model ?? "anthropic/claude-3-5-sonnet-20240620",
+    prompt: configurable.prompt ?? MAIN_PROMPT,
+    maxSearchResults: configurable.maxSearchResults ?? 5,
+    maxInfoToolCalls: configurable.maxInfoToolCalls ?? 3,
+    maxLoops: configurable.maxLoops ?? 6,
   };
 }

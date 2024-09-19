@@ -1,6 +1,5 @@
 import { Annotation, messagesStateReducer } from "@langchain/langgraph";
 import { type BaseMessage } from "@langchain/core/messages";
-import { z } from "zod";
 
 // eslint-disable-next-line
 export type AnyRecord = Record<string, any>;
@@ -11,11 +10,11 @@ export const InputStateAnnotation = Annotation.Root({
    * The info state trackes the current extracted data for the given topic,
    * conforming to the provided schema.
    */
-  info: Annotation<z.infer<z.ZodObject<z.ZodRawShape>>>,
+  info: Annotation<AnyRecord>,
   /**
    * The schema defines the information the agent is tasked with filling out.
    */
-  extractionSchema: Annotation<z.ZodObject<z.ZodRawShape>>,
+  extractionSchema: Annotation<AnyRecord>,
   // Feel free to add additional attributes to your state as needed.
   // Common examples include retrieved documents, extracted entities, API connections, etc.
 });
@@ -60,17 +59,17 @@ export const StateAnnotation = Annotation.Root({
     reducer: messagesStateReducer,
     default: () => [],
   }),
+
   topic: Annotation<string>,
   /**
    * The info state trackes the current extracted data for the given topic,
    * conforming to the provided schema.
    */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   info: Annotation<AnyRecord>,
+
   /**
    * The schema defines the information the agent is tasked with filling out.
    */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   extractionSchema: Annotation<AnyRecord>,
 
   /**

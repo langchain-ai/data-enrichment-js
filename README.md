@@ -93,50 +93,74 @@ End setup instructions
 
 3. Consider a research topic and desired extraction schema.
 
-As an example, here is a research topic we can consider.
+As an example, here is a research topic we can consider:
+
+```
+"Autonomous agents"
+```
+
+With an `extractionSchema` of:
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "facts": {
+      "type": "array",
+      "description": "An array of facts retrieved from the provided sources",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": ["facts"]
+}
+```
+
+Another example topic with a more complex schema is:
 
 ```
 "Top 5 chip providers for LLM Training"
 ```
 
-And here is a desired extraction schema.
+And here is a desired `extractionSchema`:
 
 ```json
-"extractionSchema": {
-    "type": "object",
-    "properties": {
-        "companies": {
-            "type": "array",
-            "items": {
-                "type": "object",
-                "properties": {
-                    "name": {
-                        "type": "string",
-                        "description": "Company name"
-                    },
-                    "technologies": {
-                        "type": "string",
-                        "description": "Brief summary of key technologies used by the company"
-                    },
-                    "market_share": {
-                        "type": "string",
-                        "description": "Overview of market share for this company"
-                    },
-                    "future_outlook": {
-                        "type": "string",
-                        "description": "Brief summary of future prospects and developments in the field for this company"
-                    },
-                    "key_powers": {
-                        "type": "string",
-                        "description": "Which of the 7 Powers (Scale Economies, Network Economies, Counter Positioning, Switching Costs, Branding, Cornered Resource, Process Power) best describe this company's competitive advantage"
-                    }
-                },
-                "required": ["name", "technologies", "market_share", "future_outlook"]
-            },
-            "description": "List of companies"
-        }
-    },
-    "required": ["companies"]
+{
+  "type": "object",
+  "properties": {
+    "companies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Company name"
+          },
+          "technologies": {
+            "type": "string",
+            "description": "Brief summary of key technologies used by the company"
+          },
+          "market_share": {
+            "type": "string",
+            "description": "Overview of market share for this company"
+          },
+          "future_outlook": {
+            "type": "string",
+            "description": "Brief summary of future prospects and developments in the field for this company"
+          },
+          "key_powers": {
+            "type": "string",
+            "description": "Which of the 7 Powers (Scale Economies, Network Economies, Counter Positioning, Switching Costs, Branding, Cornered Resource, Process Power) best describe this company's competitive advantage"
+          }
+        },
+        "required": ["name", "technologies", "market_share", "future_outlook"]
+      },
+      "description": "List of companies"
+    }
+  },
+  "required": ["companies"]
 }
 ```
 
@@ -145,7 +169,7 @@ And here is a desired extraction schema.
 ## How to customize
 
 1. **Customize research targets**: Provide a custom JSON `extractionSchema` when calling the graph to gather different types of information.
-2. **Select a different model**: We default to anthropic (claude-3-5-sonnet-20240620). You can select a compatible chat model using `provider/model-name` via configuration. Example: `openai/gpt-4o-mini`.
+2. **Select a different model**: We default to anthropic (`claude-3-5-sonnet-20240620`). You can select a compatible chat model using `provider/model-name` via configuration. Example: `openai/gpt-4o-mini`.
 3. **Customize the prompt**: We provide a default prompt in [src/enrichment_agent/prompts.ts](./src/enrichment_agent/prompts.ts). You can easily update this via configuration.
 
 For quick prototyping, these configurations can be set in the studio UI.
@@ -163,7 +187,7 @@ While iterating on your graph, you can edit past state and rerun your app from p
 
 Follow up requests will be appended to the same thread. You can create an entirely new thread, clearing previous history, using the `+` button in the top right.
 
-You can find the latest (under construction) docs on [LangGraph.JS](https://langchain-ai.github.io/langgraphjs/) here, including examples and other references. Using those guides can help you pick the right patterns to adapt here for your use case.
+You can find the latest (under construction) docs on [LangGraph.js](https://langchain-ai.github.io/langgraphjs/) here, including examples and other references. Using those guides can help you pick the right patterns to adapt here for your use case.
 
 LangGraph Studio also integrates with [LangSmith](https://smith.langchain.com/) for more in-depth tracing and collaboration with teammates.
 
