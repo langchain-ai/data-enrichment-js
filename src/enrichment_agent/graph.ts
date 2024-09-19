@@ -20,7 +20,7 @@ import {
   ensureConfiguration,
 } from "./configuration.js";
 import { AnyRecord, InputStateAnnotation, StateAnnotation } from "./state.js";
-import { toolNode, TOOLS } from "./tools.js";
+import { MODEL_TOOLS, toolNode } from "./tools.js";
 import { loadChatModel } from "./utils.js";
 
 /**
@@ -48,7 +48,9 @@ async function callAgentModel(
   const configuration = ensureConfiguration(config);
   // First, define the info tool. This uses the user-provided
   // json schema to define the research targets
-  const infoTool = tool(async (_args: AnyRecord) => {}, {
+  // We pass an empty function because we will not actually invoke this tool.
+  // We are just using it for formatting.
+  const infoTool = tool(async () => {}, {
     name: "Info",
     description: "Call this when you have gathered all the relevant info",
     schema: state.extractionSchema,
@@ -58,7 +60,7 @@ async function callAgentModel(
   if (!rawModel.bindTools) {
     throw new Error("Chat model does not support tool binding");
   }
-  const model = rawModel.bindTools([...TOOLS, infoTool], {
+  const model = rawModel.bindTools([...MODEL_TOOLS, infoTool], {
     tool_choice: "any",
   });
 

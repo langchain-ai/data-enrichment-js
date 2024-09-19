@@ -93,7 +93,33 @@ End setup instructions
 
 3. Consider a research topic and desired extraction schema.
 
-As an example, here is a research topic we can consider.
+As an example, here is a research topic we can consider:
+
+```
+"Autonomous agents"
+```
+
+With a schema of:
+
+```json
+{
+  "extractionSchema": {
+    "type": "object",
+    "properties": {
+      "facts": {
+        "type": "array",
+        "description": "An array of facts retrieved from the provided sources",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "required": ["facts"]
+  }
+}
+```
+
+Another example topic with a more complex schema is:
 
 ```
 "Top 5 chip providers for LLM Training"
