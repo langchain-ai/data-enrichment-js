@@ -9,7 +9,7 @@ import { TavilySearchResults } from "@langchain/community/tools/tavily_search";
 import { RunnableConfig } from "@langchain/core/runnables";
 
 import { ensureConfiguration } from "./configuration.js";
-import { AnyRecord, State } from "./state.js";
+import { AnyRecord, StateAnnotation } from "./state.js";
 import { StructuredTool, tool } from "@langchain/core/tools";
 import { curry, getTextContent, loadChatModel } from "./utils.js";
 import {
@@ -58,7 +58,7 @@ async function scrapeWebsite(
     __state,
   }: {
     url: string;
-    __state?: State;
+    __state?: typeof StateAnnotation.State;
   },
   config: RunnableConfig,
 ): Promise<string> {
@@ -75,13 +75,16 @@ async function scrapeWebsite(
     .replace("{url}", url)
     .replace("{content}", content);
 
-  const rawModel = await loadChatModel(configuration.modelName);
+  const rawModel = await loadChatModel(configuration.model);
   const result = await rawModel.invoke(p, config);
   return getTextContent(result.content);
 }
 
 export const createToolNode = (tools: StructuredTool[]) => {
-  const toolNode = async (state: State, config: RunnableConfig) => {
+  const toolNode = async (
+    state: typeof StateAnnotation.State,
+    config: RunnableConfig,
+  ) => {
     const message = state.messages[state.messages.length - 1];
     const outputs = await Promise.all(
       (message as AIMessage).tool_calls?.map(async (call) => {
