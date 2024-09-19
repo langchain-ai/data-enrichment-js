@@ -42,7 +42,7 @@ import { loadChatModel } from "./utils.js";
 
 async function callAgentModel(
   state: typeof StateAnnotation.State,
-  config: RunnableConfig
+  config: RunnableConfig,
 ): Promise<{
   messages: BaseMessage[];
   info?: AnyRecord;
@@ -89,7 +89,7 @@ async function callAgentModel(
         // (where the AI has called tools but no tool message has been provided)
         // we will drop any extra tool_calls.
         response.tool_calls = response.tool_calls?.filter(
-          (tool_call) => tool_call.name === "Info"
+          (tool_call) => tool_call.name === "Info",
         );
         break;
       }
@@ -97,7 +97,7 @@ async function callAgentModel(
   } else {
     // If LLM didn't respect the tool_choice
     response_messages.push(
-      new HumanMessage("Please respond by calling one of the provided tools.")
+      new HumanMessage("Please respond by calling one of the provided tools."),
     );
   }
 
@@ -117,18 +117,18 @@ const InfoIsSatisfactory = z.object({
   reason: z
     .array(z.string())
     .describe(
-      "First, provide reasoning for why this is either good or bad as a final result. Must include at least 3 reasons."
+      "First, provide reasoning for why this is either good or bad as a final result. Must include at least 3 reasons.",
     ),
   is_satisfactory: z
     .boolean()
     .describe(
-      "After providing your reasoning, provide a value indicating whether the result is satisfactory. If not, you will continue researching."
+      "After providing your reasoning, provide a value indicating whether the result is satisfactory. If not, you will continue researching.",
     ),
   improvement_instructions: z
     .string()
     .optional()
     .describe(
-      "If the result is not satisfactory, provide clear and specific instructions on what needs to be improved or added to make the information satisfactory. This should include details on missing information, areas that need more depth, or specific aspects to focus on in further research."
+      "If the result is not satisfactory, provide clear and specific instructions on what needs to be improved or added to make the information satisfactory. This should include details on missing information, areas that need more depth, or specific aspects to focus on in further research.",
     ),
 });
 
@@ -151,14 +151,14 @@ const InfoIsSatisfactory = z.object({
  */
 async function reflect(
   state: typeof StateAnnotation.State,
-  config: RunnableConfig
+  config: RunnableConfig,
 ): Promise<{ messages: BaseMessage[] } | { info: AnyRecord }> {
   const configuration = ensureConfiguration(config);
   const presumedInfo = state.info; // The current extracted result
   const lm = state.messages[state.messages.length - 1];
   if (!(lm._getType() === "ai")) {
     throw new Error(
-      `${reflect.name} expects the last message in the state to be an AI message with tool calls. Got: ${lm._getType()}`
+      `${reflect.name} expects the last message in the state to be an AI message with tool calls. Got: ${lm._getType()}`,
     );
   }
   const lastMessage = lm as AIMessage;
@@ -183,7 +183,7 @@ If you don't think it is good, you should be very specific about what could be i
 {presumed_info}`;
   const p1 = checker_prompt.replace(
     "{presumed_info}",
-    JSON.stringify(presumedInfo ?? {}, null, 2)
+    JSON.stringify(presumedInfo ?? {}, null, 2),
   );
   messages.push({ role: "user", content: p1 });
 
@@ -225,7 +225,7 @@ If you don't think it is good, you should be very specific about what could be i
  *          "tools" if the agent has called any other tool or no tool at all.
  */
 function routeAfterAgent(
-  state: typeof StateAnnotation.State
+  state: typeof StateAnnotation.State,
 ): "callAgentModel" | "reflect" | "tools" | "__end__" {
   const lastMessage: AIMessage = state.messages[state.messages.length - 1];
 
@@ -257,7 +257,7 @@ function routeAfterAgent(
  */
 function routeAfterChecker(
   state: typeof StateAnnotation.State,
-  config?: RunnableConfig
+  config?: RunnableConfig,
 ): "__end__" | "callAgentModel" {
   const configuration = ensureConfiguration(config);
   const lastMessage = state.messages[state.messages.length - 1];
@@ -268,7 +268,7 @@ function routeAfterChecker(
     }
     if (lastMessage._getType() !== "tool") {
       throw new Error(
-        `routeAfterChecker expected a tool message. Received: ${lastMessage._getType()}.`
+        `routeAfterChecker expected a tool message. Received: ${lastMessage._getType()}.`,
       );
     }
     if ((lastMessage as ToolMessage).status === "error") {
@@ -288,7 +288,7 @@ const workflow = new StateGraph(
     stateSchema: StateAnnotation,
     input: InputStateAnnotation,
   },
-  ConfigurationAnnotation
+  ConfigurationAnnotation,
 )
   .addNode("callAgentModel", callAgentModel)
   .addNode("reflect", reflect)

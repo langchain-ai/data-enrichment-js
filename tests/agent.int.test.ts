@@ -93,7 +93,7 @@ describe("Researcher", () => {
 
     const nvidiaPresent = info.providers.some(
       (provider: { name: string }) =>
-        provider.name.toLowerCase().trim() === "nvidia"
+        provider.name.toLowerCase().trim() === "nvidia",
     );
     expect(nvidiaPresent).toBe(true);
 
@@ -108,7 +108,7 @@ describe("Researcher", () => {
         expect(provider.technology_summary).toBeDefined();
         expect(provider.current_market_share).toBeDefined();
         expect(provider.future_outlook).toBeDefined();
-      }
+      },
     );
 
     expect(info.overall_market_trends).toBeDefined();

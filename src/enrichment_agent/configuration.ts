@@ -47,7 +47,7 @@ export const ConfigurationAnnotation = Annotation.Root({
  * @returns An instance of typeof ConfigurationAnnotation.State with the specified configuration.
  */
 export function ensureConfiguration(
-  config?: RunnableConfig
+  config?: RunnableConfig,
 ): typeof ConfigurationAnnotation.State {
   const configurable = (config?.configurable || {}) as Partial<
     typeof ConfigurationAnnotation.State

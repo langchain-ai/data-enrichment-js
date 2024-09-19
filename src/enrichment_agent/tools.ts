@@ -81,7 +81,10 @@ async function scrapeWebsite(
 }
 
 export const createToolNode = (tools: StructuredTool[]) => {
-  const toolNode = async (state: typeof StateAnnotation.State, config: RunnableConfig) => {
+  const toolNode = async (
+    state: typeof StateAnnotation.State,
+    config: RunnableConfig,
+  ) => {
     const message = state.messages[state.messages.length - 1];
     const outputs = await Promise.all(
       (message as AIMessage).tool_calls?.map(async (call) => {
