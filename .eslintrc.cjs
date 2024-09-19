@@ -14,7 +14,6 @@ module.exports = {
   ignorePatterns: [
     ".eslintrc.cjs",
     "scripts",
-    "src/utils/lodash/*",
     "node_modules",
     "dist",
     "dist-cjs",
@@ -23,10 +22,11 @@ module.exports = {
     "*.d.ts",
   ],
   rules: {
-    "no-process-env": 2,
+    "no-process-env": 0,
     "no-instanceof/no-instanceof": 2,
     "@typescript-eslint/explicit-module-boundary-types": 0,
     "@typescript-eslint/no-empty-function": 0,
+    "@typescript-eslint/no-non-null-assertion": 0,
     "@typescript-eslint/no-shadow": 0,
     "@typescript-eslint/no-empty-interface": 0,
     "@typescript-eslint/no-use-before-define": ["error", "nofunc"],

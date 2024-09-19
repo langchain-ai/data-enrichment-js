@@ -9,7 +9,7 @@ import { TavilySearchResults } from "@langchain/community/tools/tavily_search";
 import { RunnableConfig } from "@langchain/core/runnables";
 
 import { ensureConfiguration } from "./configuration.js";
-import { AnyRecord, State } from "./state.js";
+import { AnyRecord, StateAnnotation } from "./state.js";
 import { StructuredTool, tool } from "@langchain/core/tools";
 import { curry, getTextContent, loadChatModel } from "./utils.js";
 import {
@@ -58,7 +58,7 @@ async function scrapeWebsite(
     __state,
   }: {
     url: string;
-    __state?: State;
+    __state?: typeof StateAnnotation.State;
   },
   config: RunnableConfig,
 ): Promise<string> {
@@ -67,21 +67,25 @@ async function scrapeWebsite(
    */
   const response = await fetch(url);
   const content = await response.text();
+  const truncatedContent = content.slice(0, 50000);
   const configuration = ensureConfiguration(config);
   const p = INFO_PROMPT.replace(
     "{info}",
     JSON.stringify(__state?.extractionSchema, null, 2),
   )
     .replace("{url}", url)
-    .replace("{content}", content);
+    .replace("{content}", truncatedContent);
 
-  const rawModel = await loadChatModel(configuration.modelName);
-  const result = await rawModel.invoke(p, config);
+  const rawModel = await loadChatModel(configuration.model);
+  const result = await rawModel.invoke(p, { callbacks: config?.callbacks });
   return getTextContent(result.content);
 }
 
 export const createToolNode = (tools: StructuredTool[]) => {
-  const toolNode = async (state: State, config: RunnableConfig) => {
+  const toolNode = async (
+    state: typeof StateAnnotation.State,
+    config: RunnableConfig,
+  ) => {
     const message = state.messages[state.messages.length - 1];
     const outputs = await Promise.all(
       (message as AIMessage).tool_calls?.map(async (call) => {

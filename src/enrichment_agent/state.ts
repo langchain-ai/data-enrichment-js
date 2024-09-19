@@ -84,5 +84,3 @@ export const StateAnnotation = Annotation.Root({
   // Feel free to add additional attributes to your state as needed.
   // Common examples include retrieved documents, extracted entities, API connections, etc.
 });
-
-export type State = typeof StateAnnotation.State;
