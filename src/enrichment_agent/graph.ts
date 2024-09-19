@@ -14,6 +14,7 @@ import { RunnableConfig } from "@langchain/core/runnables";
 import { tool } from "@langchain/core/tools";
 import { StateGraph } from "@langchain/langgraph";
 import { z } from "zod";
+
 import {
   ConfigurationAnnotation,
   ensureConfiguration,
@@ -43,11 +44,7 @@ import { loadChatModel } from "./utils.js";
 async function callAgentModel(
   state: typeof StateAnnotation.State,
   config: RunnableConfig,
-): Promise<{
-  messages: BaseMessage[];
-  info?: AnyRecord;
-  loopStep: number;
-}> {
+): Promise<typeof StateAnnotation.Update> {
   const configuration = ensureConfiguration(config);
   // First, define the info tool. This uses the user-provided
   // json schema to define the research targets
@@ -73,7 +70,7 @@ async function callAgentModel(
 
   // Next, we'll call the model.
   const response: AIMessage = await model.invoke(messages);
-  const response_messages = [response];
+  const responseMessages = [response];
 
   // If the model has collected enough information to fill uot
   // the provided schema, great! It will call the "Info" tool
@@ -96,13 +93,13 @@ async function callAgentModel(
     }
   } else {
     // If LLM didn't respect the tool_choice
-    response_messages.push(
+    responseMessages.push(
       new HumanMessage("Please respond by calling one of the provided tools."),
     );
   }
 
   return {
-    messages: response_messages,
+    messages: responseMessages,
     info,
     // This increments the step counter.
     // We configure a max step count to avoid infinite research loops
@@ -197,7 +194,7 @@ If you don't think it is good, you should be very specific about what could be i
           tool_call_id: lastMessage.tool_calls?.[0]?.id || "",
           content: response.reason.join("\n"),
           name: "Info",
-          additional_kwargs: { artifact: response },
+          artifact: response,
           status: "success",
         }),
       ],
@@ -209,7 +206,7 @@ If you don't think it is good, you should be very specific about what could be i
           tool_call_id: lastMessage.tool_calls?.[0]?.id || "",
           content: `Unsatisfactory response:\n${response.improvement_instructions}`,
           name: "Info",
-          additional_kwargs: { artifact: response },
+          artifact: response,
           status: "error",
         }),
       ],
