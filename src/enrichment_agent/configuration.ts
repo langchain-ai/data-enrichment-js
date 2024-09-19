@@ -56,7 +56,7 @@ export function ensureConfiguration(
   return {
     model: configurable.model ?? "anthropic/claude-3-5-sonnet-20240620",
     prompt: configurable.prompt ?? MAIN_PROMPT,
-    maxSearchResults: configurable.maxSearchResults ?? 10,
+    maxSearchResults: configurable.maxSearchResults ?? 5,
     maxInfoToolCalls: configurable.maxInfoToolCalls ?? 3,
     maxLoops: configurable.maxLoops ?? 6,
   };

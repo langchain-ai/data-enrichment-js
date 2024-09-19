@@ -184,7 +184,7 @@ If you don't think it is good, you should be very specific about what could be i
   );
   messages.push({ role: "user", content: p1 });
 
-  // Calll the model
+  // Call the model
   const response = await boundModel.invoke(messages);
   if (response.is_satisfactory && presumedInfo) {
     return {

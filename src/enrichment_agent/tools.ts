@@ -77,7 +77,7 @@ async function scrapeWebsite(
     .replace("{content}", truncatedContent);
 
   const rawModel = await loadChatModel(configuration.model);
-  const result = await rawModel.invoke(p, { callbacks: config?.callbacks });
+  const result = await rawModel.invoke(p);
   return getTextContent(result.content);
 }
 
