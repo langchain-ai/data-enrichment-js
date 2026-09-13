@@ -16,6 +16,7 @@
     "strictPropertyInitialization": false,
     "allowJs": true,
     "strict": true,
+    "rootDir": ".",
     "outDir": "dist",
     "types": ["jest", "node"],
     "resolveJsonModule": true
