@@ -3706,10 +3706,10 @@ langchain@^1.5.10:
     langsmith ">=0.5.0 <1.0.0"
     zod "^3.25.76 || ^4"
 
-"langsmith@>=0.5.0 <1.0.0", langsmith@^0.9.0:
-  version "0.9.0"
-  resolved "https://registry.yarnpkg.com/langsmith/-/langsmith-0.9.0.tgz#48495c0af6ff1e0850736a5098b64cec9f6b475b"
-  integrity sha512-tlg/aG7qezAKY6G3fgADSX7PkRj+JKoF3z7QNkCMsAOvwvuzhiwP9Amn1Z+zAIxuKoWuXQdIjtFN0LVmUC1oUQ==
+"langsmith@>=0.5.0 <1.0.0", langsmith@^0.10.4:
+  version "0.10.4"
+  resolved "https://registry.yarnpkg.com/langsmith/-/langsmith-0.10.4.tgz#6853c2e44b6a0d99a3dc8f9360254833cb480534"
+  integrity sha512-P8kIZYLih9zDOr6e+wBTIKjSe3ak6LeFMKQFQJgAWQ65tjzrI/NcathO31Txr6BQZCCN2HEPfKX/YFmdbVBTgQ==
   dependencies:
     p-queue "6.6.2"
 
