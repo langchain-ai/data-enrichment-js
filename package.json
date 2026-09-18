@@ -37,7 +37,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.6",
     "@eslint/js": "^10.0.1",
-    "@jest/globals": "^30.5.0",
+    "@jest/globals": "^30.5.1",
     "@tsconfig/recommended": "^1.0.13",
     "@types/jest": "^30.0.0",
     "@types/node": "^26.4.0",
