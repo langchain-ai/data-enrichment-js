@@ -29,7 +29,7 @@
     "@langchain/core": "^1.2.13",
     "@langchain/langgraph": "^1.4.13",
     "@langchain/tavily": "^1.2.0",
-    "langchain": "^1.5.10",
+    "langchain": "^1.5.14",
     "langsmith": "^0.10.5",
     "ts-node": "^10.9.2",
     "zod": "^4.6.5"
