@@ -10,7 +10,8 @@
   "packageManager": "yarn@1.22.22",
   "resolutions": {
     "@babel/helpers": "^7.26.10",
-    "@istanbuljs/load-nyc-config/js-yaml": "3.15.2"
+    "@istanbuljs/load-nyc-config/js-yaml": "3.15.2",
+    "handlebars": "^4.7.10"
   },
   "scripts": {
     "build": "tsc",
