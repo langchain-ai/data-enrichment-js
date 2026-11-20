@@ -2,11 +2,12 @@
 # yarn lockfile v1
 
 
-"@anthropic-ai/sdk@^0.129.0":
-  version "0.129.0"
-  resolved "https://registry.yarnpkg.com/@anthropic-ai/sdk/-/sdk-0.129.0.tgz#6cdc34cd804dc0bf7cfb7cb0ff0c802670658150"
-  integrity sha512-MH7LB20kNpGLUpPTe2OG5XvL/KhX8HUO9XyBaFjgFk6TLS4Xjt0VPIuMKywe7POKKPslX+QxSlVok9e+8kG5Nw==
+"@anthropic-ai/sdk@^1.7.0":
+  version "1.11.0"
+  resolved "https://registry.yarnpkg.com/@anthropic-ai/sdk/-/sdk-1.11.0.tgz#09a1b392a636af81fcca45093c0a2ab4d68799b0"
+  integrity sha512-lW16YCGJ7ItUy92hehGjuMIxvhCeW8pYi4w4jzzfo8UtRbEamagUJAzAEh1VxS6wHfDh6yB+/KE/Rqp2i6elIw==
   dependencies:
+    "@opentelemetry/api" "^1.4.1"
     json-schema-to-ts "^3.1.1"
     standardwebhooks "^1.0.0"
 
@@ -822,13 +823,13 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@langchain/anthropic@^1.6.0":
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/@langchain/anthropic/-/anthropic-1.6.0.tgz#2a880947b2f2ac92dc5fa55acaeb88a0016ad926"
-  integrity sha512-owIpaDngKj2LsR7TZMcfiL1bCZqGikE+YnMEijaeBoYTL9KWLUawg0GYfMupgvDBsQDqw3NNcKVDzX/g4NOl3g==
+"@langchain/anthropic@^1.6.5":
+  version "1.6.5"
+  resolved "https://registry.yarnpkg.com/@langchain/anthropic/-/anthropic-1.6.5.tgz#126a538bccb33d5ee94416a412648c0f1e4f30b8"
+  integrity sha512-qB9bMeyRm46TI5ozkS66tPSnLu4Eayv+2R0aB7Uz79jwXZSEFRQ1i0uyov7xtPJW1R3EjbhpT2UuHy4x38pbAA==
   dependencies:
-    "@anthropic-ai/sdk" "^0.129.0"
-    zod "^3.25.76 || ^4"
+    "@anthropic-ai/sdk" "^1.7.0"
+    zod "^4.6.6"
 
 "@langchain/core@^1.4.1":
   version "1.4.1"
@@ -886,6 +887,11 @@
   integrity sha512-UMduMbqO5s5zF2NkNacMT/yK5Y5QiKvWr2+50bzIIxFDwVJ2h49b+oyjaCGPhJxd2/gC2x39EHv/gHVuu36x2Q==
   dependencies:
     "@tybys/wasm-util" "^0.10.3"
+
+"@opentelemetry/api@^1.4.1":
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/@opentelemetry/api/-/api-1.10.0.tgz#31d2e3d36ffc6cdd5ce165251e7fa13bbad0fd8a"
+  integrity sha512-lMkyes8iHrG+mk6WH7X70MdCLI2RS0FwNBY1PyQ8UemaijE2m5mv5A0Niy3HtbYTFrgkUEQjFMXmSAk2hQDuPQ==
 
 "@parcel/watcher-android-arm64@2.6.0":
   version "2.6.0"
