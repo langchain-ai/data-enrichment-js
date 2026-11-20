@@ -873,12 +873,12 @@
   resolved "https://registry.yarnpkg.com/@langchain/protocol/-/protocol-0.0.21.tgz#4fcef13beaa97969db6bf918eb1a4e20ca392f9c"
   integrity sha512-HJS8Cd5GJ437MIrCnbrPHx0FJcluyOk5HdZzD081ap4SBzfWpAj/6AtI7fqpNSMo6VZEoEdaN9fIts8R0XR1AQ==
 
-"@langchain/tavily@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@langchain/tavily/-/tavily-1.2.0.tgz#17ee4b7c879ab357f7335a65456af2ae05c22c7a"
-  integrity sha512-aPLPgtw8+b/Rnr3H+X8H8z98T/Y7JuCE4B5eqRDHoEWgZvMDUFF7divqwQqCTMq2deQttlVrm5bN5JbKaAR7/w==
+"@langchain/tavily@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@langchain/tavily/-/tavily-1.2.1.tgz#9b21a555e92fa4f7dfe7c11ff0852afc48455282"
+  integrity sha512-VVkZf7icx0mZaNQ1G3fxSBtiOGXBkrW6mkm1Jlfpq4COG2qCaqxY+ucXS7ksD23jt8jQV9sK/Zb4vgubHC0sdQ==
   dependencies:
-    zod "^3.25.76 || ^4"
+    zod "^4.6.6"
 
 "@napi-rs/wasm-runtime@^1.1.4":
   version "1.2.3"
