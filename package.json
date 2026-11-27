@@ -29,7 +29,7 @@
     "test:all": "yarn test && yarn test:int && yarn lint:langgraph-json"
   },
   "dependencies": {
-    "@langchain/anthropic": "^1.6.0",
+    "@langchain/anthropic": "^1.6.5",
     "@langchain/core": "^1.4.1",
     "@langchain/langgraph": "^1.7.3",
     "@langchain/tavily": "^1.2.0",
