@@ -46,7 +46,7 @@
     "@types/jest": "^30.0.0",
     "@types/node": "^26.6.6",
     "@typescript-eslint/eslint-plugin": "^8.72.1",
-    "@typescript-eslint/parser": "^8.72.1",
+    "@typescript-eslint/parser": "^8.74.0",
     "dotenv": "^18.0.10",
     "eslint": "^9.39.5",
     "eslint-config-prettier": "^10.1.8",
