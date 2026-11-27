@@ -32,7 +32,7 @@
     "@langchain/anthropic": "^1.6.0",
     "@langchain/core": "^1.4.1",
     "@langchain/langgraph": "^1.7.3",
-    "@langchain/tavily": "^1.2.0",
+    "@langchain/tavily": "^1.2.1",
     "langchain": "^1.5.20",
     "langsmith": "^0.11.8",
     "ts-node": "^10.9.2",
